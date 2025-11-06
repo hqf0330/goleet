@@ -6,59 +6,62 @@ import (
 	"testing"
 )
 
-type question49 struct {
-	para49
-	ans49
+type question128 struct {
+	para128
+	ans128
 }
 
 // para 是参数
 // one 代表第一个参数
-type para49 struct {
-	one []string
+type para128 struct {
+	one []int
 }
 
 // ans 是答案
 // one 代表第一个答案
-type ans49 struct {
-	one [][]string
+type ans128 struct {
+	one int
 }
 
-func Test_Problem49(t *testing.T) {
+func Test_Problem128(t *testing.T) {
 
-	qs := []question49{
+	qs := []question128{
 
 		{
-			para49{[]string{"eat", "tea", "tan", "ate", "nat", "bat"}},
-			ans49{[][]string{{"ate", "eat", "tea"}, {"nat", "tan"}, {"bat"}}},
+			para128{[]int{}},
+			ans128{0},
 		},
 
 		{
-			para49{[]string{""}},
-			ans49{[][]string{{""}}},
+			para128{[]int{0}},
+			ans128{1},
 		},
 
 		{
-			para49{[]string{"a"}},
-			ans49{[][]string{{"a"}}},
+			para128{[]int{9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6}},
+			ans128{7},
 		},
 
+		{
+			para128{[]int{2147483646, -2147483647, 0, 2, 2147483644, -2147483645, 2147483645}},
+			ans128{3},
+		},
+
+		{
+			para128{[]int{100, 4, 200, 1, 3, 2}},
+			ans128{4},
+		},
 	}
 
-	fmt.Printf("------------------------Leetcode Problem 49------------------------\n")
+	fmt.Printf("------------------------Leetcode Problem 128------------------------\n")
 
 	for i, q := range qs {
-		expected := q.ans49.one
-		actual := groupAnagrams(q.para49.one)
+		expected := q.ans128.one
+		actual := longestConsecutive(q.para128.one)
 
 		// 使用 reflect.DeepEqual 进行深度比较（处理切片、数组、map等复杂类型）
 		// 对于空切片，normalize 空切片和 nil 的比较
 		aNorm, eNorm := actual, expected
-		if len(actual) == 0 {
-			aNorm = nil
-		}
-		if len(expected) == 0 {
-			eNorm = nil
-		}
 
 		pass := reflect.DeepEqual(aNorm, eNorm)
 		if pass {
@@ -67,7 +70,7 @@ func Test_Problem49(t *testing.T) {
 			fmt.Printf("【测试用例 %d】❌ FAIL\n", i+1)
 			t.Errorf("测试用例 %d 失败: 期望 %v, 实际得到 %v", i+1, expected, actual)
 		}
-		fmt.Printf("  【input】:%v\n", q.para49)
+		fmt.Printf("  【input】:%v\n", q.para128)
 		fmt.Printf("  【expected】:%v\n", expected)
 		fmt.Printf("  【actual】:%v\n", actual)
 	}
